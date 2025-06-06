@@ -89,13 +89,13 @@ export class ServerClient extends EventEmitter<ServerClientEvents> {
 
   private handlePlayerTime(playerTimeInfo: PlayerTimeInfo) {
     const timeResponseMessage = {
-      type: "source/time" as const,
+      type: "server/time" as const,
       payload: {
         player_transmitted: playerTimeInfo.player_transmitted,
-        source_received: Math.round(
+        server_received: Math.round(
           (performance.timeOrigin + performance.now()) * 1000,
         ),
-        source_transmitted: Math.round(
+        server_transmitted: Math.round(
           (performance.timeOrigin + performance.now()) * 1000,
         ),
       },
