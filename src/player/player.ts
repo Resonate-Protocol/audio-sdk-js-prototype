@@ -140,7 +140,7 @@ export class Player extends EventEmitter<Events> {
   private _handleTextMessage(message: ServerMessages, receivedAt: number) {
     this.logger.log("Received text message:", message);
     switch (message.type) {
-      case "source/hello":
+      case "server/hello":
         this.serverInfo = message.payload;
         this.logger.log("Server connected:", this.serverInfo);
         this.fire("server-update", this.serverInfo);
@@ -168,7 +168,7 @@ export class Player extends EventEmitter<Events> {
         console.log("METADATA UPDATED", this.metadata);
         break;
 
-      case "source/time":
+      case "server/time":
         // Pass player_received time to the handler
         this._handleServerTime(message.payload, receivedAt);
         break;
@@ -322,13 +322,13 @@ export class Player extends EventEmitter<Events> {
   }
 
   private _handleServerTime(payload: ServerTimeInfo, receivedAt: number) {
-    const { player_transmitted, source_received, source_transmitted } = payload;
+    const { player_transmitted, server_received, server_transmitted } = payload;
 
     // Calculate the raw offset from this message (in seconds)
     const offset =
-      (source_received -
+      (server_received -
         player_transmitted +
-        (source_transmitted - receivedAt)) /
+        (server_transmitted - receivedAt)) /
       2 /
       1000000;
 

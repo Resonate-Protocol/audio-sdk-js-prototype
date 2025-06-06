@@ -76,7 +76,7 @@ async function main() {
     // Create and start the Source server
     const server = new Server(
       {
-        source_id: generateUniqueId("server"),
+        server_id: generateUniqueId("server"),
         name: "SDKSample",
       },
       logger,

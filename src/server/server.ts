@@ -12,7 +12,7 @@ export class Server {
 
   addClient(client: ServerClient) {
     client.send({
-      type: "source/hello" as const,
+      type: "server/hello" as const,
       payload: this.getServerInfo(),
     });
     this.clients.set(client.clientId, client);
